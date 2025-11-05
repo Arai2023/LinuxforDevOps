@@ -1,0 +1,37 @@
+---
+- name: SIS5 configure local machine
+  hosts: localhost
+  become: yes
+  vars:
+    venv_path: "/home/{{ lookup('env','USER') }}/sis5_venv"
+
+  tasks:
+
+  - name: Install required system packages
+    apt:
+      update_cache: yes
+      name:
+        - python3
+        - python3-venv
+        - python3-pip
+      state: present
+
+  - name: Create a virtual environment
+    command: "python3 -m venv {{ venv_path }}"
+    args:
+      creates: "{{ venv_path }}/bin/activate"
+
+  - name: Install python packages inside venv
+    pip:
+      name:
+        - flask
+        - requests
+        - psycopg2-binary
+        - pytest
+      virtualenv: "{{ venv_path }}"
+      virtualenv_python: python3
+
+  - name: Show venv path info
+    debug:
+      msg: "Virtual environment ready at {{ venv_path }}"
+
