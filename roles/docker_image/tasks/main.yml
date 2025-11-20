@@ -1,0 +1,6 @@
+- name: Build docker image
+  community.docker.docker_image:
+    name: my_app
+    build:
+      path: /home/iztel/SIS5/
+

@@ -1,0 +1,22 @@
+- name: Install required system packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - git
+    - curl
+    - python3-venv
+    - python3-pip
+    - docker.io
+
+- name: Install python packages inside virtualenv
+  pip:
+    name:
+      - ansible
+      - requests
+    extra_args: "--timeout 120 --retries 5"
+    virtualenv: /home/iztel/sis5_venv
+    virtualenv_python: python3
+    state: present
+

@@ -1,0 +1,19 @@
+- name: SIS5 full setup
+  hosts: localhost
+  become: yes
+  
+  roles:
+    - users
+    - packages
+    - firewall
+    - container
+    - cronjobs
+    - tests
+  
+  tasks:
+    - name: Pull docker image
+      community.docker.docker_image:
+        name: arai2023/arai_flask_app
+        tag: latest
+        source: pull
+        state: present

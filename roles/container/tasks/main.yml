@@ -1,0 +1,24 @@
+- name: Run container as systemd service
+  copy:
+    dest: /etc/systemd/system/my_app.service
+    content: |
+      [Unit]
+      Description=My App Container
+      After=docker.service
+      Requires=docker.service
+
+      [Service]
+      Restart=always
+      ExecStart=/usr/bin/docker run --rm --name my_app my_app
+      ExecStop=/usr/bin/docker stop my_app
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Enable and start container service
+  systemd:
+    name: my_app.service
+    enabled: yes
+    state: started
+
+

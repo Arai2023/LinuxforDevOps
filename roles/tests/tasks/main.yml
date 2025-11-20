@@ -1,0 +1,8 @@
+- name: Test if docker is running
+  command: docker ps
+  register: docker_output
+  ignore_errors: yes
+
+- debug:
+    msg: "{{ docker_output.stdout_lines }}"
+

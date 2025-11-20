@@ -1,0 +1,11 @@
+---
+- name: Test docker build
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Build docker image
+      community.docker.docker_image:
+        name: sis5_image
+        build:
+          path: /home/iztel/SIS5
+        state: present

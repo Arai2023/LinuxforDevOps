@@ -1,0 +1,13 @@
+
+- name: Create service and admin users
+  user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups | default(omit) }}"
+    state: present
+    shell: /bin/bash
+  loop:
+    - { name: 'admin', groups: 'sudo' }
+    - { name: 'auditor' }
+    - { name: 'automation_bot' }
+    - { name: 'postgres' }
+

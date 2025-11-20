@@ -1,0 +1,7 @@
+- name: Add cronjob for log cleanup
+  cron:
+    name: "Clean temp logs"
+    job: "rm -f /tmp/*.log"
+    minute: "0"
+    hour: "3"
+
