@@ -1,0 +1,15 @@
+name: Run Ansible SIS5
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run Ansible playbook
+        run: ansible-playbook -i inventory site.yml
